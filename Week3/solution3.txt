@@ -1,0 +1,252 @@
+Write a python script to perform CRUD operation on following table of "ESM.db" database.
+Employee ( eid, ename, dept, basic, branch). eid must be primary key.
+Department : Account, Inventory, IT, HR.
+Peform Following Operation.
+
+1. Create table
+Ans-
+
+	import sqlite3 as sql
+	con=sql.connect("c://sqlite3//ESM.db")
+	#create cursor
+	cur=con.cursor()
+	t="Create table employee(eid number primary key,ename text,dept text,basic number,branch text)"
+	cur.execute(table)
+	con.commit()
+
+2. Insert 5 Records directly, 5 records using tuple and 5 records using taking input from user
+Ans:-
+
+	import sqlite3 as sq
+	con=sq.connect("c://sqlite3//ESM.db")
+	cur=con.cursor()
+	ins="insert into employee values(1,'om','Hr',35000,'bardoli'),\
+	(2,'sai','Hr',41000,'ten'),\
+	(3,'ram','It',25000,'surat'),\
+	(4,'krishna','Inventory',30000,'mathura'),\
+	(5,'gopal','It',35000,'surat')"
+	cur.execute(ins)
+	con.commit()
+
+output-
+	1|om|Hr|35000|bardoli
+	2|sai|Hr|41000|ten
+	3|ram|It|27500|surat
+	4|krishna|Inventory|30000|mathura
+	5|gopal|It|38500|surat
+
+#Record input using tuple.
+tuple=[(6,'kush','Hr',30000,'navsari'),
+      (7,'sita','It',25000,'surat'),
+      (8,'pratham','Inventory',19000,'bardoli'),
+      (9,'divyesh','Account',32000,'vyara'),
+      (10,'vivek','It',21000,'surat')]
+      cur.executemany("insert into employee values(?,?,?,?,?)",tuple)
+      con.commit()
+
+output-
+	6|kush|Hr|30000|navsari
+	7|sita|It|27500|surat
+	8|pratham|Inventory|19000|bardoli
+	9|divyesh|Account|32000|vyara
+	10|vivek|It|23100|surat
+
+#Insert record  using user input
+	ins2="insert into employee values(?,?,?,?,?)"
+ #create empty list
+	l=[ ]
+	for i in range(5):
+   	       a=int(input("Enter Employee Id:"))
+    	       n=input("Enter Employee Name:")
+    	      dept=input("Enter Employee Department Name:")
+  	      b=int(input("Enter Employee Basic Salary:"))
+    	      branch=input("Enter Employee Branch:")
+    	      m=[a,n,dept,b,branch]
+   	      l.append(m)
+   	     cur.executemany(ins2,l)
+	     con.commit()
+output-      Enter Employee Id:11
+	Enter Employee Name:kirtan
+	Enter Employee Department Name:It
+	Enter Employee Basic Salary:15000
+	Enter Employee Branch:surat
+	Enter Employee Id:12
+	Enter Employee Name:vraj
+	Enter Employee Department Name:Account
+	Enter Employee Basic Salary:19000
+	Enter Employee Branch:bardoli
+	Enter Employee Id:13
+	Enter Employee Name:mittal
+	Enter Employee Department Name:Hr
+	Enter Employee Basic Salary:30000
+	Enter Employee Branch:navsari
+	Enter Employee Id:14
+	Enter Employee Name:rhea
+	Enter Employee Department Name:Inventory
+	Enter Employee Basic Salary:22000
+	Enter Employee Branch:vyara
+	Enter Employee Id:15
+	Enter Employee Name:dhruv
+	Enter Employee Department Name:It
+	Enter Employee Basic Salary:19000
+	Enter Employee Branch:bardoli
+
+
+3. Update records who are from "Surat" branch with increment in salary 10%.
+Ans-
+
+import sqlite3 as sq
+con=sq.connect("c://sqlite3//ESM.db")
+cur=con.cursor()
+q="update employee set basic=basic+basic*10/100 where branch is 'surat'"
+cur.execute(q1)
+con.commit()
+
+4. Print All records.
+Ans-
+
+import sqlite3 as sq
+con=sq.connect("c://sqlite3//ESM.db")
+cur=con.cursor()
+q1="select * from employee"
+cur.execute(q1)
+r=cur.fetchall()
+for i in r:
+    print(i)
+con.commit()
+
+5. Print records where dept is "HR" and "IT".
+Ans-
+
+import sqlite3 as sq
+con=sq.connect("c://sqlite3//ESM.db")
+cur=con.cursor()
+q2="select * from employee where dept='HR' or dept='IT' "
+cur.execute(q2)
+r=cur.fetchall()
+for i in r:
+    print(i)
+con.commit()
+
+output-	(1, 'om', 'Hr', 35000, 'bardoli')
+	(2, 'sai', 'Hr', 41000, 'ten')
+	(3, 'ram', 'It', 27500, 'surat')
+	(5, 'gopal', 'It', 38500, 'surat')
+	(6, 'kush', 'Hr', 30000, 'navsari')
+	(7, 'sita', 'It', 27500, 'surat')
+	(10, 'vivek', 'It', 23100, 'surat')
+	(11, 'kirtan', 'It', 16500, 'surat')
+	(13, 'mittal', 'Hr', 30000, 'navsari')
+	(15, 'dhruv', 'It', 19000, 'bardoli')
+
+6. Print records in sorting order of department.
+Ans:-
+
+import sqlite3 as sq
+con=sq.connect("c://sqlite3//ESM.db")
+cur=con.cursor()
+
+#order by in asending order
+q3="select * from employee order by dept asc"
+cur.execute(q3)
+j=cur.fetchall()
+for i in j:
+    print(i)
+
+#order by in desending order
+q3="select * from employee order by dept desc"
+cur.execute(q3)
+j=cur.fetchall()
+for i in j:
+    print(i)
+con.commit()
+
+output-	(3, 'ram', 'It', 27500, 'surat')
+	(5, 'gopal', 'It', 38500, 'surat')
+	(7, 'sita', 'It', 27500, 'surat')
+	(10, 'vivek', 'It', 23100, 'surat')
+	(11, 'kirtan', 'It', 16500, 'surat')
+	(15, 'dhruv', 'It', 19000, 'bardoli')
+	(4, 'krishna', 'Inventory', 30000, 'mathura')
+	(8, 'pratham', 'Inventory', 19000, 'bardoli')
+	(14, 'rhea', 'Inventory', 22000, 'vyara')
+	(1, 'om', 'Hr', 35000, 'bardoli')
+	(2, 'sai', 'Hr', 41000, 'ten')
+	(6, 'kush', 'Hr', 30000, 'navsari')
+	(13, 'mittal', 'Hr', 30000, 'navsari')
+	(9, 'divyesh', 'Account', 32000, 'vyara')
+	(12, 'vraj', 'Account', 19000, 'bardoli')
+
+7. Print records where basic is >6000.
+Ans-
+
+import sqlite3 as sq
+con=sq.connect("c://sqlite3//ESM.db")
+cur=con.cursor()
+q4="select * from employee where basic>6000"
+cur.execute(q4)
+h=cur.fetchall()
+for i in h:
+    print(i)
+con.commit()
+
+8. Print records whrere employee name second character is "r".
+Ans-
+
+	import sqlite3 as sq
+	con=sq.connect("c://sqlite3//ESM.db")
+	cur=con.cursor()
+	q5="select * from employee where ename like '_r%'"
+	cur.execute(q5)
+	r=cur.fetchall()
+	for i in r:
+   	      print(i)
+	con.commit()
+
+output-      (4, 'krishna', 'Inventory', 30000, 'mathura')
+	(8, 'pratham', 'Inventory', 19000, 'bardoli')
+	(12, 'vraj', 'Account', 19000, 'bardoli')
+
+9. Grouping record of employee who are from "Account" and "Inventory".
+Ans-
+	
+import sqlite3 as sq
+con=sq.connect("c://sqlite3//ESM.db")
+cur=con.cursor()
+q6="select * from employee \
+    group by dept in('Account','Inventory')"
+cur.execute(q6)
+k=cur.fetchall()
+for i in k:
+    print(i)
+con.commit()
+
+10. Print all records based on branch name in descending order.
+Ans:-
+
+import sqlite3 as sq
+con=sq.connect("c://sqlite3//ESM.db")
+cur=con.cursor()
+q8="select * from employee order by branch desc"
+cur.execute(q8)
+l=cur.fetchall()
+for i in l:
+    print(i)
+con.commit()
+con.close()
+
+output-	(9, 'divyesh', 'Account', 32000, 'vyara')
+	(14, 'rhea', 'Inventory', 22000, 'vyara')
+	(2, 'sai', 'Hr', 41000, 'ten')
+	(3, 'ram', 'It', 27500, 'surat')
+	(5, 'gopal', 'It', 38500, 'surat')
+	(7, 'sita', 'It', 27500, 'surat')
+	(10, 'vivek', 'It', 23100, 'surat')
+	(11, 'kirtan', 'It', 16500, 'surat')
+	(6, 'kush', 'Hr', 30000, 'navsari')
+	(13, 'mittal', 'Hr', 30000, 'navsari')
+	(4, 'krishna', 'Inventory', 30000, 'mathura')
+	(1, 'om', 'Hr', 35000, 'bardoli')
+	(8, 'pratham', 'Inventory', 19000, 'bardoli')
+	(12, 'vraj', 'Account', 19000, 'bardoli')
+	(15, 'dhruv', 'It', 19000, 'bardoli')

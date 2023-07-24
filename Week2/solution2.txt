@@ -1,0 +1,63 @@
+1) Create a table of student and student details.
+Ans-	
+	create table stud64
+	(
+		id text primary key,
+		name text
+	);
+	
+	create table studdetail64
+	(
+		id text,
+		city text,	
+		mobile number,
+		foreign key(id) references stud64(id)
+	);
+
+2) Insert minimum 5 records in each table.
+Ans-
+	insert into stud64
+	values('22bca80','om'),('22bca79','sai'),('22bca45','ram'),('22bca51','krishna'),('22bca64','gopal');
+	
+	insert into studdetail64
+	values('22bca80','bardoli',8965789452),
+	('22bca79','surat',8967478945),
+	('22bca45','vyara',8976843157),
+	('22bca51','bardoli',9087865744),
+	('22bca64','bardoli',8978976456);
+
+3) Display student details who come from the surat city.
+Ans-
+	select s.id,s.name,sd.city,sd.mobile
+   	from stud64 s join studdetail64 sd
+    	on s.id=sd.id
+    	where city='surat';
+
+Output-   22bca79|sai|surat|8967478945
+
+4) Display student details who come the city which is started with B.
+Ans-
+	select s.id,s.name,sd.city,sd.mobile
+    	from stud64 s join studdetail64 sd
+    	on s.id=sd.id
+   	where sd.city like 'b%';
+
+Output-      22bca80|om|bardoli|8965789452
+	22bca51|krishna|bardoli|9087865744
+	22bca64|gopal|bardoli|8978976456
+	22bca80|om|bardoli|8965789452
+	22bca51|krishna|bardoli|9087865744
+	22bca64|gopal|bardoli|8978976456
+
+5. Update mobile number who are coming from 'surat'.
+Ans:-
+	update studdetail64 set mobile=8989898989
+	where city='surat';
+
+Output-    select * from studdetail64;
+	22bca80|bardoli|8965789452
+	22bca79|surat|8989898989
+	22bca45|vyara|8976843157
+	22bca51|bardoli|9087865744
+	22bca64|bardoli|8978976456
+	22bca80|bardoli|8965789452
